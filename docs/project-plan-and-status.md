@@ -29,7 +29,7 @@ Our deployment will follow a structured approach with emphasis on documentation 
 5. **Production Deployment**: Roll out to production with monitoring and backup strategies
 6. **Documentation**: Maintain comprehensive deployment and operational documentation
 
-We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our deployment options documentation](/docs/technical/deployment-options), specifically Option 1, for its balance of simplicity, maintainability, and customization capabilities.
+We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our deployment options documentation]({{ '/docs/technical/deployment-options' | relative_url }}), specifically Option 1, for its balance of simplicity, maintainability, and customization capabilities.
 
 ## Core Requirements
 
@@ -138,7 +138,7 @@ With the deployment approach selected, we're now focusing on preparing our Ranch
 3. **Environment Setup**: Configuring the necessary Kubernetes prerequisites
 4. **Deployment Documentation**: Creating step-by-step deployment instructions
 
-We've documented three potential approaches for deploying Discourse on Rancher in our [deployment options](/docs/technical/deployment-options) guide and have selected Option 1 (Bitnami Helm chart) as our preferred method due to its balance of simplicity and flexibility.
+We've documented three potential approaches for deploying Discourse on Rancher in our [deployment options]({{'/docs/technical/deployment-options' | relative_url }}) guide and have selected Option 1 (Bitnami Helm chart) as our preferred method due to its balance of simplicity and flexibility.
 
 ## Technology Choices
 
