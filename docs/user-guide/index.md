@@ -8,7 +8,7 @@ permalink: /user-guide/
 
 # User Guide
 
-This section provides guidance for users of the Prisoner's Dilemma app, including installation, configuration, and gameplay instructions.
+This section provides guidance for users of the Rancher Discourse deployment, including installation, configuration, and gameplay instructions.
 
 ## Getting Started
 

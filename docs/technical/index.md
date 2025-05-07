@@ -8,7 +8,7 @@ permalink: /technical/
 
 # Technical Documentation
 
-This section covers the technical aspects of the Prisoner's Dilemma app, including architecture, frontend and backend implementation, and API references.
+This section covers the technical aspects of the Rancher Discourse deployment, including architecture, frontend and backend implementation, and API references.
 
 ## Overview
 

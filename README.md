@@ -1,13 +1,13 @@
-# Prisoner's Dilemma App Documentation
+# Rancher Discourse deployment Documentation
 
 [![Just the Docs Version](https://img.shields.io/gem/v/just-the-docs)](https://github.com/just-the-docs/just-the-docs)
-[![GitHub license](https://img.shields.io/github/license/randallard/prisoners-dilemma-docs)](https://github.com/randallard/prisoners-dilemma-docs/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/randallard/rancher-discourse)](https://github.com/randallard/rancher-discourse/blob/main/LICENSE)
 
 ## Overview
 
-This repository contains comprehensive documentation for the Prisoner's Dilemma app, a tool for playing and exploring the classic game theory scenario with friends.
+This repository contains comprehensive documentation for the Rancher Discourse deployment, a deployment of Discourse on Rancher.
 
-**Documentation Homepage**: [Home | Prisoner's Dilemma App](https://randallard.github.io/prisoners-dilemma-docs/)
+**Documentation Homepage**: [Home | Rancher Discourse deployment](https://randallard.github.io/rancher-discourse/)
 
 ## About the Documentation
 
@@ -15,21 +15,18 @@ This documentation is built using [Just the Docs](https://just-the-docs.github.i
 
 - Comprehensive guidance for both users and developers
 - Technical specifications and architectural details
-- Game theory background and explanations
-- Development journal tracking the project's progress
+- Deployment journal tracking the project's progress
 - Contribution guidelines for collaborators
 
 ## Documentation Structure
 
 - **Home**: Introduction and project overview
-- **Getting Started**: Quick setup and installation guide
-- **Development Journal**: Progress tracking and development notes
+- **Deployment Journal**: Progress tracking and Deployment notes
 - **Technical Documentation**: Architecture, frontend, backend, and API details
 - **User Guide**: Installation, configuration, and gameplay instructions
 - **Contributing Guidelines**: How to contribute to the project
-- **Game Theory Background**: Explanation of relevant game theory concepts
 
-## Local Development
+## Local Deployment
 
 ### Prerequisites
 
@@ -41,8 +38,8 @@ This documentation is built using [Just the Docs](https://just-the-docs.github.i
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/randallard/prisoners-dilemma-docs.git
-   cd prisoners-dilemma-docs
+   git clone https://github.com/randallard/rancher-discourse.git
+   cd rancher-discourse
    ```
 
 2. Install dependencies
@@ -50,7 +47,7 @@ This documentation is built using [Just the Docs](https://just-the-docs.github.i
    bundle install
    ```
 
-3. Run the development server
+3. Run the Deployment server
    ```bash
    bundle exec jekyll serve
    ```

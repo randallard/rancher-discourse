@@ -1,8 +1,8 @@
-title: Prisoner's Dilemma App
-description: Documentation for developing and playing the Prisoner's Dilemma game app
+title: Rancher Discourse deployment
+description: Documentation for the Rancher Discourse deployment 
 remote_theme: just-the-docs/just-the-docs
 
-baseurl: "/prisoners-dilemma-docs" # the subpath of your site
+baseurl: "/rancher-discourse" # the subpath of your site
 url: "https://randallard.github.io" # the base hostname & protocol
 
 plugins:
@@ -16,7 +16,7 @@ color_scheme: dark
 # Aux links for the upper right navigation
 aux_links:
   "View on GitHub":
-    - "//github.com/randallard/prisoners-dilemma-docs"
+    - "//github.com/randallard/rancher-discourse"
 
 # Footer content
 footer_content: "Copyright &copy; 2025 Your Name. Distributed under an MIT license."

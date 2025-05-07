@@ -8,7 +8,7 @@ permalink: /contributing/
 
 # Contributing Guidelines
 
-Thank you for your interest in contributing to the Prisoner's Dilemma app! This section outlines how you can help improve and extend the application.
+Thank you for your interest in contributing to the Rancher Discourse deployment! This section outlines how you can help improve and extend the application.
 
 ## Ways to Contribute
 
@@ -18,6 +18,6 @@ Thank you for your interest in contributing to the Prisoner's Dilemma app! This 
 - Improve documentation
 - Share feedback on usability
 
-## Development Process
+## Deployment Process
 
-Before contributing code, please review our [Development Setup](development-setup) guide and familiarize yourself with our [Coding Standards](coding-standards).
+Before contributing code, please review our [Deployment Setup](deployment-setup) guide and familiarize yourself with our [Coding Standards](coding-standards).

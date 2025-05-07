@@ -1,28 +1,10 @@
-# PowerShell script to copy latest development journal entry, project plan, and index to ai-chat-files directory
+# PowerShell script to copy latest Deployment journal entry, project plan, and index to ai-chat-files directory
 
 # Create ai-chat-files directory if it doesn't exist
 $aiChatFilesDir = "ai-chat-files"
 if (-not (Test-Path $aiChatFilesDir)) {
     New-Item -ItemType Directory -Path $aiChatFilesDir | Out-Null
     Write-Host "Created directory: $aiChatFilesDir"
-}
-
-# Copy the doc structure file
-$docStructurePath = "doc-structure.txt"
-if (Test-Path $docStructurePath) {
-    Copy-Item -Path $docStructurePath -Destination $aiChatFilesDir
-    Write-Host "Copied: $docStructurePath to $aiChatFilesDir"
-} else {
-    Write-Host "Warning: Could not find $docStructurePath"
-}
-
-# Copy the user-stories file
-$userStoriesPath = "docs/technical/user-stories.md"
-if (Test-Path $userStoriesPath) {
-    Copy-Item -Path $userStoriesPath -Destination $aiChatFilesDir
-    Write-Host "Copied: $userStoriesPath to $aiChatFilesDir"
-} else {
-    Write-Host "Warning: Could not find $userStoriesPath"
 }
 
 # Copy the project plan and status file
@@ -43,8 +25,8 @@ if (Test-Path $indexPath) {
     Write-Host "Warning: Could not find $indexPath"
 }
 
-# Find and copy the latest development journal entry
-$journalDir = "docs/development-journal"
+# Find and copy the latest Deployment journal entry
+$journalDir = "docs/deployment-journal"
 if (Test-Path $journalDir) {
     # Get all entry files with pattern entry-*.md and sort them
     $entryFiles = Get-ChildItem -Path $journalDir -Filter "entry-*.md" | 
