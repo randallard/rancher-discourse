@@ -1,0 +1,107 @@
+# Discourse Helm Chart Values for Rancher Deployment
+
+## Global settings
+global:
+  # Change to your actual domain
+  host: discourse.example.com
+  # Set to true for production
+  production: false
+
+## Discourse application settings
+discourse:
+  username: admin
+  # Change in production - this is just a placeholder
+  password: "StrongP@ssword123"
+  email: admin@example.com
+  # Adjust resource limits based on your needs
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+  # Persistent volume for Discourse data
+  persistence:
+    enabled: true
+    storageClass: "" # Use default or specify your storage class
+    size: 10Gi
+
+## PostgreSQL database settings
+postgresql:
+  auth:
+    username: bn_discourse
+    # Change in production - this is just a placeholder
+    password: "PostgresP@ssword123"
+    database: bitnami_discourse
+  primary:
+    persistence:
+      enabled: true
+      storageClass: "" # Use default or specify your storage class
+      size: 8Gi
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+
+## Redis settings
+redis:
+  auth:
+    # Change in production - this is just a placeholder
+    password: "RedisP@ssword123"
+  master:
+    persistence:
+      enabled: true
+      storageClass: "" # Use default or specify your storage class
+      size: 8Gi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+
+## Ingress configuration
+ingress:
+  enabled: true
+  hostname: discourse.example.com
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # Uncomment for TLS with cert-manager
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls: false
+  # Uncomment for TLS
+  # tls: true
+  # extraTls:
+  #   - hosts:
+  #       - discourse.example.com
+  #     secretName: discourse-tls-cert
+
+## Email settings
+smtp:
+  enabled: true
+  host: smtp.example.com
+  port: 587
+  user: user@example.com
+  # Change in production - this is just a placeholder
+  password: "EmailP@ssword123"
+  protocol: tls
+  auth: login
+
+# Plugins - add your required plugins here
+plugins:
+  - name: discourse-solved
+    url: https://github.com/discourse/discourse-solved.git
+  - name: discourse-voting
+    url: https://github.com/discourse/discourse-voting.git
+
+## Discourse site settings
+discourseConfig:
+  title: "My Community"
+  logo_url: ""
+  logo_small_url: ""
+  favicon_url: ""

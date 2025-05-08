@@ -1,0 +1,30 @@
+---
+# Source: discourse/templates/configmaps.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: release-name-discourse
+  namespace: default
+  labels:
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: discourse
+    app.kubernetes.io/version: 3.4.3
+    helm.sh/chart: discourse-16.0.0
+data:
+  DISCOURSE_HOST: "127.0.0.1"
+  DISCOURSE_SKIP_INSTALL: "no"
+  DISCOURSE_SITE_NAME: "My Site!"
+  DISCOURSE_USERNAME: "user"
+  DISCOURSE_EMAIL: "user@example.com"
+  DISCOURSE_REDIS_HOST: "release-name-redis-master"
+  DISCOURSE_REDIS_PORT_NUMBER: "6379"
+  DISCOURSE_DATABASE_HOST: "release-name-postgresql"
+  DISCOURSE_DATABASE_PORT_NUMBER: "5432"
+  DISCOURSE_DATABASE_NAME: "bitnami_application"
+  DISCOURSE_DATABASE_USER: "bn_discourse"
+  POSTGRESQL_CLIENT_DATABASE_HOST: "release-name-postgresql"
+  POSTGRESQL_CLIENT_DATABASE_PORT_NUMBER: "5432"
+  POSTGRESQL_CLIENT_POSTGRES_USER: "postgres"
+  POSTGRESQL_CLIENT_CREATE_DATABASE_NAME: "bitnami_application"
+  POSTGRESQL_CLIENT_CREATE_DATABASE_EXTENSIONS: "hstore,pg_trgm"

@@ -1,0 +1,233 @@
+---
+# Source: discourse/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-discourse
+  namespace: default
+  labels:
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: discourse
+    app.kubernetes.io/version: 3.4.3
+    helm.sh/chart: discourse-16.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: release-name
+      app.kubernetes.io/name: discourse
+  strategy:
+    rollingUpdate: {}
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/config: 3d5bae1ddd353d292037d3e85d0d55b49c18b1471e36dff41970eeb9ee340aad
+        checksum/secrets-discourse: b2ab7c429c8d70ab0647d7413536c6342b07adada84e49e81d7caaa32683e799
+        checksum/secrets-database: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        checksum/secrets-redis: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+      labels:
+        app.kubernetes.io/instance: release-name
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: discourse
+        app.kubernetes.io/version: 3.4.3
+        helm.sh/chart: discourse-16.0.0
+    spec:
+      
+      automountServiceAccountToken: false
+      affinity:
+        podAffinity:
+          
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/instance: release-name
+                    app.kubernetes.io/name: discourse
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        nodeAffinity:
+          
+      serviceAccountName: release-name-discourse
+      securityContext:
+        fsGroup: 0
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      initContainers:
+      containers:
+        - name: discourse
+          image: docker.io/bitnami/discourse:3.4.3-debian-12-r0
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add:
+              - CHOWN
+              - SYS_CHROOT
+              - FOWNER
+              - SETGID
+              - SETUID
+              - DAC_OVERRIDE
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: DISCOURSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-discourse-discourse
+                  key: discourse-password
+            - name: DISCOURSE_PORT_NUMBER
+              value: "8080"
+            - name: DISCOURSE_EXTERNAL_HTTP_PORT_NUMBER
+              value: "80"
+            - name: DISCOURSE_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-postgresql
+                  key: password
+            - name: POSTGRESQL_CLIENT_CREATE_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-postgresql
+                  key: password
+            - name: POSTGRESQL_CLIENT_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-postgresql
+                  key: postgres-password
+            - name: DISCOURSE_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-redis
+                  key: redis-password
+          envFrom:
+            - configMapRef:
+                name: release-name-discourse
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 500
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /srv/status
+              port: http
+            initialDelaySeconds: 180
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          resources:
+            limits:
+              cpu: "6.0"
+              ephemeral-storage: 2Gi
+              memory: 12288Mi
+            requests:
+              cpu: "1.0"
+              ephemeral-storage: 50Mi
+              memory: 3072Mi
+          volumeMounts:
+            - name: discourse-data
+              mountPath: /bitnami/discourse
+              subPath: discourse
+        - name: sidekiq
+          image: docker.io/bitnami/discourse:3.4.3-debian-12-r0
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add:
+              - CHOWN
+              - SYS_CHROOT
+              - FOWNER
+              - SETGID
+              - SETUID
+              - DAC_OVERRIDE
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          command:
+            - /opt/bitnami/scripts/discourse/entrypoint.sh
+          args:
+            - /opt/bitnami/scripts/discourse-sidekiq/run.sh
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: DISCOURSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-discourse-discourse
+                  key: discourse-password
+            - name: DISCOURSE_POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-postgresql
+                  key: password
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: release-name-redis
+                  key: redis-password
+          envFrom:
+            - configMapRef:
+                name: release-name-discourse
+          livenessProbe:
+            exec:
+              command: ["/bin/sh", "-c", "pgrep -f ^sidekiq"]
+            initialDelaySeconds: 500
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command: ["/bin/sh", "-c", "pgrep -f ^sidekiq"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          resources:
+            limits:
+              cpu: 750m
+              ephemeral-storage: 2Gi
+              memory: 768Mi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 50Mi
+              memory: 512Mi
+          volumeMounts:
+            - name: discourse-data
+              mountPath: /bitnami/discourse
+              subPath: discourse
+      volumes:
+        - name: discourse-data
+          persistentVolumeClaim:
+            claimName: release-name-discourse

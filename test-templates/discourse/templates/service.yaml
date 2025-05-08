@@ -1,0 +1,25 @@
+---
+# Source: discourse/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: release-name-discourse
+  namespace: default
+  labels:
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: discourse
+    app.kubernetes.io/version: 3.4.3
+    helm.sh/chart: discourse-16.0.0
+spec:
+  type: ClusterIP
+  sessionAffinity: None
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+      nodePort: null
+  selector:
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/name: discourse
