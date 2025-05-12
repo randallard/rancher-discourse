@@ -42,4 +42,4 @@ Deployment journal entries coming soon!
 
 ## Getting Started
 
-To begin using or developing the app, check out the [Getting Started](/docs/getting-started) guide.
+To begin using or developing the app, check out the [Getting Started]({{ '/docs/getting-started' | relative_url }}) guide.
