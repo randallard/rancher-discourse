@@ -1,19 +1,20 @@
 # Discourse Helm Chart Values for Rancher Deployment
+# Based on project requirements from project-plan-and-status.md
 
 ## Global settings
 global:
-  # Change to your actual domain
-  host: discourse.example.com
-  # Set to true for production
+  # UPDATE: Set your actual domain before deployment
+  host: discourse.company.com
+  # Set to false for development, true for production
   production: false
 
 ## Discourse application settings
 discourse:
   username: admin
-  # Change in production - this is just a placeholder
+  # IMPORTANT: Change this password before deployment
   password: "StrongP@ssword123"
-  email: admin@example.com
-  # Adjust resource limits based on your needs
+  email: admin@company.com
+  # Resource settings based on project requirements
   resources:
     limits:
       cpu: 2000m
@@ -24,20 +25,20 @@ discourse:
   # Persistent volume for Discourse data
   persistence:
     enabled: true
-    storageClass: "" # Use default or specify your storage class
+    storageClass: "longhorn"
     size: 10Gi
 
 ## PostgreSQL database settings
 postgresql:
   auth:
     username: bn_discourse
-    # Change in production - this is just a placeholder
+    # IMPORTANT: Change this password before deployment
     password: "PostgresP@ssword123"
     database: bitnami_discourse
   primary:
     persistence:
       enabled: true
-      storageClass: "" # Use default or specify your storage class
+      storageClass: "longhorn"
       size: 8Gi
     resources:
       limits:
@@ -50,12 +51,12 @@ postgresql:
 ## Redis settings
 redis:
   auth:
-    # Change in production - this is just a placeholder
+    # IMPORTANT: Change this password before deployment
     password: "RedisP@ssword123"
   master:
     persistence:
       enabled: true
-      storageClass: "" # Use default or specify your storage class
+      storageClass: "longhorn"
       size: 8Gi
     resources:
       limits:
@@ -66,42 +67,90 @@ redis:
         memory: 256Mi
 
 ## Ingress configuration
+# Updated with TLS configuration
 ingress:
   enabled: true
-  hostname: discourse.example.com
+  hostname: discourse.company.com
   annotations:
     kubernetes.io/ingress.class: nginx
-    # Uncomment for TLS with cert-manager
-    # cert-manager.io/cluster-issuer: letsencrypt-prod
-  tls: false
-  # Uncomment for TLS
-  # tls: true
-  # extraTls:
-  #   - hosts:
-  #       - discourse.example.com
-  #     secretName: discourse-tls-cert
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+  # Enable TLS
+  tls: true
+  extraTls:
+    - hosts:
+        - discourse.company.com
+      secretName: company.com
 
 ## Email settings
+# IMPORTANT: Update with actual email service details
 smtp:
   enabled: true
-  host: smtp.example.com
+  host: smtp.company.com
   port: 587
-  user: user@example.com
-  # Change in production - this is just a placeholder
+  user: notifications@company.com
+  # Change before deployment
   password: "EmailP@ssword123"
   protocol: tls
   auth: login
 
-# Plugins - add your required plugins here
+# Plugins - based on project requirements
 plugins:
   - name: discourse-solved
     url: https://github.com/discourse/discourse-solved.git
   - name: discourse-voting
     url: https://github.com/discourse/discourse-voting.git
+  - name: discourse-data-explorer
+    url: https://github.com/discourse/discourse-data-explorer.git
 
 ## Discourse site settings
 discourseConfig:
-  title: "My Community"
+  # Update with your organization name
+  title: "Company Community"
+  # TODO: Add organization logo when received
   logo_url: ""
   logo_small_url: ""
   favicon_url: ""
+  
+  # Additional site settings based on project requirements
+  site_settings:
+    # Enable backup settings
+    backup_frequency: 3
+    backup_location: "s3"
+    # Set upload limits
+    max_image_size_kb: 3072
+    max_attachment_size_kb: 3072
+    # Set general settings
+    min_post_length: 10
+    min_first_post_length: 20
+    min_topic_title_length: 15
+    # Enable monitoring related settings
+    enable_prometheus_collector: true
+
+## Monitoring settings (as specified in project plan)
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+
+## Pod Security Context
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+
+## Container Security Context
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+
+## Horizontal Pod Autoscaler
+# Uncomment if you want to enable autoscaling
+# autoscaling:
+#   enabled: true
+#   minReplicas: 1
+#   maxReplicas: 3
+#   targetCPUUtilizationPercentage: 80
+#   targetMemoryUtilizationPercentage: 80

@@ -11,8 +11,8 @@ This document serves as a living record of our project plan, current status, and
 
 ## Current Status
 
-**Phase**: Planning & Setup  
-**Last Updated**: May 7, 2025
+**Phase**: Configuration & Customization  
+**Last Updated**: May 11, 2025
 
 ## Project Vision
 
@@ -28,16 +28,17 @@ Our deployment will follow a structured approach with emphasis on documentation 
 4. **Testing Deployment**: Deploy in development environment and validate functionality
 5. **Production Deployment**: Roll out to production with monitoring and backup strategies
 6. **Documentation**: Maintain comprehensive deployment and operational documentation
+7. **User Onboarding**: Create user guides and training materials
 
 We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our deployment options documentation]({{ '/docs/technical/deployment-options' | relative_url }}), specifically Option 1, for its balance of simplicity, maintainability, and customization capabilities.
 
 ## Core Requirements
 
 ### 1. Infrastructure Requirements
-- ⬜ Rancher-managed Kubernetes cluster with sufficient resources
-- ⬜ Appropriate storage class configuration for persistent data
-- ⬜ Networking and ingress controller setup
-- ⬜ TLS certificates for secure access
+- ✅ Rancher-managed Kubernetes cluster with sufficient resources
+- ✅ Appropriate storage class configuration for persistent data (Longhorn)
+- ✅ Networking and ingress controller setup
+- ✅ TLS certificates for secure access
 
 ### 2. Discourse Configuration
 - ⬜ Custom theme and branding
@@ -52,40 +53,46 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 - ⬜ Disaster recovery documentation
 
 ### 4. Minimal Viable Deployment
-- ⬜ Working Discourse instance accessible via configured domain
-- ⬜ Admin account configured and secure
+- ✅ Working Discourse instance accessible via configured domain
+- ✅ Admin account configured and secure
 - ⬜ Basic theme and branding applied
 - ⬜ Essential plugins installed
 - ⬜ Email functionality validated
 
+### 5. User Documentation
+- ⬜ Standard user tutorial
+- ⬜ Moderator guide
+- ⬜ Administrator documentation
+- ⬜ FAQs and common procedures
+
 ## Deployment Roadmap
 
-### Phase 1: Planning & Setup ⬜
-- ✓ Create project documentation structure
-- ✓ Research deployment options
-- ✓ Select Bitnami Helm chart approach
-- ⬜ Define resource requirements
-- ⬜ Create Helm values.yaml configuration template
-- ⬜ Document prerequisites for Rancher environment
+### Phase 1: Planning & Setup ✅
+- ✅ Create project documentation structure
+- ✅ Research deployment options
+- ✅ Select Bitnami Helm chart approach
+- ✅ Define resource requirements
+- ✅ Create Helm values.yaml configuration template
+- ✅ Document prerequisites for Rancher environment
 
-### Phase 2: Environment Preparation
-- ⬜ Configure Kubernetes namespace
-- ⬜ Set up appropriate storage classes
-- ⬜ Configure network policies
-- ⬜ Prepare TLS certificates
-- ⬜ Set up container registry access (if needed)
-- ⬜ Create secrets for sensitive configuration
+### Phase 2: Environment Preparation ✅
+- ✅ Configure Kubernetes namespace
+- ✅ Set up appropriate storage classes
+- ✅ Configure network policies
+- ✅ Prepare TLS certificates
+- ✅ Set up container registry access (if needed)
+- ✅ Create secrets for sensitive configuration
 
-### Phase 3: Development Deployment
-- ⬜ Deploy PostgreSQL using Helm chart
-- ⬜ Deploy Redis using Helm chart
-- ⬜ Deploy Discourse using Bitnami Helm chart
-- ⬜ Configure ingress for development access
-- ⬜ Validate basic functionality
-- ⬜ Document deployment process
+### Phase 3: Development Deployment ✅
+- ✅ Deploy PostgreSQL using Helm chart
+- ✅ Deploy Redis using Helm chart
+- ✅ Deploy Discourse using Bitnami Helm chart
+- ✅ Configure ingress for development access
+- ✅ Validate basic functionality
+- ✅ Document deployment process
 
-### Phase 4: Configuration & Customization
-- ⬜ Configure admin account and settings
+### Phase 4: Configuration & Customization 🔄
+- ✅ Configure admin account and settings
 - ⬜ Install and configure required plugins
 - ⬜ Apply custom theme and branding
 - ⬜ Set up user authentication
@@ -106,6 +113,62 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 - ⬜ Train administrators on operational procedures
 - ⬜ Handover documentation and training
 
+### Phase 7: User Documentation & Training
+- ⬜ Create introductory tutorial for standard users
+- ⬜ Develop moderator guidelines and training materials
+- ⬜ Create administrator reference documentation
+- ⬜ Compile FAQs based on initial user feedback
+- ⬜ Establish documentation update process
+
+## User Tutorial Development
+
+### Overview
+Creating comprehensive, user-friendly documentation is essential for successful adoption of our Discourse platform. The standard user tutorial will be designed to help new users navigate and use the platform effectively.
+
+### Tutorial Requirements
+- **Format**: Web-based, accessible through the Discourse platform itself
+- **Audience**: Non-technical end users
+- **Scope**: Core functionality for everyday participation
+
+### Tutorial Content Plan
+1. **Getting Started**
+   - Account creation and login
+   - Profile setup and personalization
+   - Navigation overview
+   - Notification settings
+
+2. **Forum Participation**
+   - How to read and follow topics
+   - Creating new topics
+   - Replying to discussions
+   - Using formatting tools and markdown
+   - Uploading images and attachments
+
+3. **Advanced Features**
+   - Using search effectively
+   - Topic bookmarking and tracking
+   - Tagging system
+   - Voting on topics (using discourse-voting plugin)
+   - Marking solutions (using discourse-solved plugin)
+
+4. **Community Guidelines**
+   - Behavior expectations
+   - Reporting inappropriate content
+   - Flagging system
+   - Trust levels explained
+
+### Delivery Methods
+- In-app guided tour for first-time users
+- Dedicated "Start Here" topic pinned to homepage
+- Downloadable PDF version for offline reference
+- Short video tutorials for complex processes
+
+### Timeline
+- **Draft Content**: To be completed by June 1, 2025
+- **Internal Review**: June 1-7, 2025
+- **Revisions**: June 8-14, 2025
+- **Publication**: June 15, 2025, coinciding with user testing phase
+
 ## Key Decisions & Notes
 
 <details>
@@ -114,6 +177,9 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| May 11, 2025 | Disabled asset precompilation | Improved container startup time and reduced resource usage during initialization |
+| May 11, 2025 | Increased probe delays | Accommodated actual application startup requirements, avoiding premature restarts |
+| May 11, 2025 | Added user documentation phase | Recognized the importance of end-user guidance for adoption success |
 | May 7, 2025 | Selected Bitnami Helm chart for deployment | Provides maintained, production-ready solution with simplified deployment while allowing sufficient customization |
 | May 7, 2025 | Documented deployment options | To provide a clear comparison of approaches and justify our selected method |
 | May 7, 2025 | Adopted documentation-first approach | To ensure clear requirements and procedures before beginning deployment |
@@ -123,22 +189,22 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 
 ## Next Steps
 
-1. Define specific resource requirements for our Discourse deployment
-2. Create a customized values.yaml file for our environment
-3. Document Rancher and Kubernetes prerequisites
-4. Prepare development environment for initial deployment
-5. Create deployment verification checklist
+1. Complete configuration of required plugins
+2. Apply organization branding and theme
+3. Configure and test email functionality
+4. Create draft user tutorial content
+5. Develop monitoring and backup strategy for production
 
-## Current Focus: Environment Preparation
+## Current Focus: Plugin Configuration & User Documentation
 
-With the deployment approach selected, we're now focusing on preparing our Rancher environment for the Discourse deployment. This includes:
+With the development environment successfully deployed, we're now focusing on configuring the required plugins and beginning user documentation development. This includes:
 
-1. **Resource Planning**: Determining CPU, memory, and storage requirements
-2. **Helm Configuration**: Creating a values.yaml file specific to our needs
-3. **Environment Setup**: Configuring the necessary Kubernetes prerequisites
-4. **Deployment Documentation**: Creating step-by-step deployment instructions
+1. **Plugin Configuration**: Setting up and testing the discourse-solved, discourse-voting, and discourse-data-explorer plugins
+2. **Branding Implementation**: Applying organizational themes and customizations
+3. **User Tutorial Planning**: Creating the structure and initial content for the standard user tutorial
+4. **Email System Setup**: Finalizing and testing email delivery configuration
 
-We've documented three potential approaches for deploying Discourse on Rancher in our [deployment options]({{'/docs/technical/deployment-options' | relative_url }}) guide and have selected Option 1 (Bitnami Helm chart) as our preferred method due to its balance of simplicity and flexibility.
+We've successfully overcome initial deployment challenges with certificates, memory allocation, and startup optimizations, providing a solid foundation for further development.
 
 ## Technology Choices
 
@@ -151,8 +217,8 @@ We've documented three potential approaches for deploying Discourse on Rancher i
 - **TLS**: Let's Encrypt with cert-manager
 
 ### Discourse Configuration
-- **Version**: Latest stable from Bitnami chart
-- **Plugins**: To be determined based on requirements
+- **Version**: Latest stable from Bitnami chart (3.4.3)
+- **Plugins**: discourse-solved, discourse-voting, discourse-data-explorer
 - **Theme**: Custom theme based on organization branding
 - **Authentication**: Internal with SSO integration (if required)
 
@@ -164,9 +230,9 @@ We've documented three potential approaches for deploying Discourse on Rancher i
 
 ## Open Questions
 
-- What storage class should we use for persistent data?
-- What resource limits should we set for Discourse, PostgreSQL, and Redis?
-- What specific plugins are required for our Discourse implementation?
-- Should we implement SSO authentication, and if so, with which provider?
-- What monitoring metrics and alerts are most important for this deployment?
-- What is our strategy for handling Discourse updates and database migrations?
+- What specific metrics should we monitor for Discourse health?
+- What backup schedule is appropriate for our usage patterns?
+- How should we handle Discourse updates and database migrations?
+- What additional plugins might be needed as usage grows?
+- How will we measure user adoption and engagement?
+- What user feedback mechanisms should we implement for the documentation?
