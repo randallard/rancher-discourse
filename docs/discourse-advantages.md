@@ -42,7 +42,7 @@ permalink: /docs/discourse-advantages/
 1. **Mailing List Archive Migration**
    - Discourse includes tools for importing from various mailing list formats
    - Supports importing from Mailman and other common mailing list platforms
-   - Resource: [Discourse Import Documentation](https://github.com/discourse/discourse/blob/main/script/import_scripts/README.md)
+   - Resource: [Discourse Import Documentation](https://meta.discourse.org/t/migrate-a-mailing-list-to-discourse-mbox-listserv-google-groups-etc/79773)
 
 ## Deployment Options
 
