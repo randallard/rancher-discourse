@@ -5,6 +5,8 @@ nav_order: 1
 permalink: /
 ---
 
+Discourse is the solution for secure conversations about our systems, while preserving conversations from the mailing list - [summary of benefits including resources]({{ '/docs/discourse-advantages' | relative_url }})
+
 # Rancher Discourse deployment Documentation
 
 Welcome to the documentation for the Rancher Discourse deployment, documentation on our deployment of Discourse on Rancher.
