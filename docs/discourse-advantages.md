@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Project Plan & Status
+title: Discourse Advantages
 nav_order: 2
-permalink: /docs/project-plan-and-status/
+permalink: /docs/discourse-advantages/
 ---
 
 # Discourse on Rancher: Project Plan & Status
