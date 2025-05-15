@@ -93,11 +93,13 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 
 ### Phase 4: Configuration & Customization 🔄
 - ✅ Configure admin account and settings
+- ✅ Troubleshoot and resolve admin access issues
 - ⬜ Install and configure required plugins
 - ⬜ Apply custom theme and branding
 - ⬜ Set up user authentication
 - ⬜ Configure email delivery
 - ⬜ Test and validate customizations
+- 🔄 Monitor and resolve intermittent 503 errors
 
 ### Phase 5: Production Deployment
 - ⬜ Finalize production values.yaml configuration
@@ -177,6 +179,8 @@ Creating comprehensive, user-friendly documentation is essential for successful 
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| May 12, 2025 | Document VPN requirement for admin access | Resolved authentication issues related to network connectivity |
+| May 12, 2025 | Maintained asset precompilation settings | Verified that authentication issues were network-related, not asset compilation related |
 | May 11, 2025 | Disabled asset precompilation | Improved container startup time and reduced resource usage during initialization |
 | May 11, 2025 | Increased probe delays | Accommodated actual application startup requirements, avoiding premature restarts |
 | May 11, 2025 | Added user documentation phase | Recognized the importance of end-user guidance for adoption success |
@@ -189,22 +193,39 @@ Creating comprehensive, user-friendly documentation is essential for successful 
 
 ## Next Steps
 
-1. Complete configuration of required plugins
-2. Apply organization branding and theme
-3. Configure and test email functionality
-4. Create draft user tutorial content
-5. Develop monitoring and backup strategy for production
+1. Investigate and resolve intermittent 503 errors
+2. Set up regular backup schedule (high priority)
+3. Configure email notification system (high priority)
+4. Document operational procedures, including VPN requirements
+5. Complete configuration of required plugins
+6. Apply organization branding and theme
+7. Create draft user tutorial content
 
-## Current Focus: Plugin Configuration & User Documentation
+## Current Focus: Troubleshooting 503 Errors & Email Configuration
 
-With the development environment successfully deployed, we're now focusing on configuring the required plugins and beginning user documentation development. This includes:
+With the development environment deployed and admin access configured, our current priorities are:
 
-1. **Plugin Configuration**: Setting up and testing the discourse-solved, discourse-voting, and discourse-data-explorer plugins
-2. **Branding Implementation**: Applying organizational themes and customizations
-3. **User Tutorial Planning**: Creating the structure and initial content for the standard user tutorial
-4. **Email System Setup**: Finalizing and testing email delivery configuration
+1. **503 Error Investigation**: Monitoring and troubleshooting intermittent 503 errors that occur when accessing specific Discourse topics
+2. **Email System Setup**: Configuring and testing email functionality for notifications and password resets (high priority)
+3. **Backup Configuration**: Setting up regular backup schedule for Discourse data (high priority)
+4. **Operational Documentation**: Documenting VPN requirements and access procedures
+5. **Plugin Configuration**: Setting up and testing the discourse-solved, discourse-voting, and discourse-data-explorer plugins
+6. **Branding Implementation**: Applying organizational themes and customizations
 
-We've successfully overcome initial deployment challenges with certificates, memory allocation, and startup optimizations, providing a solid foundation for further development.
+We've successfully overcome initial deployment challenges with certificates, memory allocation, startup optimizations, and admin authentication issues, providing a solid foundation for further development and configuration.
+
+## Recent Accomplishments
+
+1. **Successful Discourse Deployment**: Deployed Discourse using Bitnami Helm chart on Rancher West Kubernetes cluster with Longhorn storage
+2. **Admin Access Resolution**: Diagnosed and resolved admin authentication issues related to VPN connectivity
+3. **Deployment Documentation**: Created detailed documentation of deployment process and troubleshooting steps
+4. **Configuration Optimization**: Optimized container startup by configuring appropriate probe timings and disabling asset precompilation
+
+## Known Issues
+
+1. **Intermittent 503 Errors**: Investigating sporadic 503 errors when accessing specific Discourse topics
+2. **VPN Dependency**: Admin access requires VPN connectivity, which needs to be documented clearly
+3. **Previous OOMKilled Events**: The sidekiq container has experienced memory-related restarts, suggesting need for resource limit review
 
 ## Technology Choices
 
@@ -215,6 +236,7 @@ We've successfully overcome initial deployment challenges with certificates, mem
 - **Cache**: Redis (included in Helm chart)
 - **Ingress**: NGINX Ingress Controller
 - **TLS**: Let's Encrypt with cert-manager
+- **Storage**: Longhorn
 
 ### Discourse Configuration
 - **Version**: Latest stable from Bitnami chart (3.4.3)
@@ -230,6 +252,7 @@ We've successfully overcome initial deployment challenges with certificates, mem
 
 ## Open Questions
 
+- What is causing the intermittent 503 errors and how can they be resolved?
 - What specific metrics should we monitor for Discourse health?
 - What backup schedule is appropriate for our usage patterns?
 - How should we handle Discourse updates and database migrations?
