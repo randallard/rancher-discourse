@@ -43,7 +43,7 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 ### 2. Discourse Configuration
 - ⬜ Custom theme and branding
 - ⬜ Required plugins installation and configuration
-- ⬜ User authentication integration
+- ✅ User authentication integration (Two-factor auth with Duo Mobile verified)
 - ✅ Email delivery service configuration
 
 ### 3. Operational Requirements
@@ -96,9 +96,11 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 - ✅ Troubleshoot and resolve admin access issues
 - ✅ Resolve intermittent 503 errors by increasing memory allocation to 2GB
 - ✅ Configure email delivery system with updated connection settings
+- ✅ Resolve logo display issue by forcing HTTPS and re-uploading images
+- ✅ Verify two-factor authentication with Duo Mobile (QR code setup and passcode login tested)
+- ✅ Update Discourse to version 3.4.4 through ArgoCD
 - ⬜ Install and configure required plugins
 - ⬜ Apply custom theme and branding
-- ⬜ Set up user authentication
 - ⬜ Test and validate customizations
 
 ### Phase 5: Verification & Testing 🔄
@@ -186,6 +188,9 @@ Creating comprehensive, user-friendly documentation is essential for successful 
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| May 29, 2025 | Updated Discourse to version 3.4.4 via ArgoCD | Latest stable version with security updates and bug fixes |
+| May 29, 2025 | Verified two-factor authentication with Duo Mobile | Confirmed QR code setup process and passcode login functionality working correctly |
+| May 29, 2025 | Resolved logo display issue with HTTPS enforcement | Fixed logo visibility by forcing HTTPS protocol and re-uploading image assets |
 | May 29, 2025 | Increased memory allocation to 2GB | Resolved 503 errors caused by admin dashboard graphs requiring over 1GB of memory to load |
 | May 29, 2025 | Updated email connection configuration | Resolved email delivery issues for notifications and password resets |
 | May 12, 2025 | Document VPN requirement for admin access | Resolved authentication issues related to network connectivity |
@@ -204,14 +209,12 @@ Creating comprehensive, user-friendly documentation is essential for successful 
 
 1. Complete comprehensive verification checklist (see [verification-checklist.md]({{ '/docs/technical/verification-checklist' | relative_url }}))
 2. Onboard additional administrators to assist with verification and issue identification  
-3. Fix logo display issue in dark mode theme
-4. Troubleshoot and resolve passkey authentication functionality
+3. Complete configuration of required plugins
+4. Apply organization branding and theme
 5. Performance testing and optimization
 6. Security validation and penetration testing
-7. Complete configuration of required plugins
-8. Apply organization branding and theme
-9. Create draft user tutorial content
-10. Plan production deployment timeline
+7. Create draft user tutorial content
+8. Plan production deployment timeline
 
 ## Current Focus: Verification & Testing
 
@@ -219,14 +222,13 @@ With the major technical issues resolved, our current priorities are:
 
 1. **Administrator Onboarding**: Bringing on additional administrators to help verify functionality and identify issues
 2. **Comprehensive Verification**: Working through the detailed verification checklist to ensure all functionality is working correctly
-3. **Issue Resolution**: Addressing known issues identified during verification (see Known Issues section)
+3. **Plugin Configuration**: Setting up and testing the discourse-solved, discourse-voting, and discourse-data-explorer plugins
 4. **Performance Testing**: Validating system performance under various load conditions
 5. **Security Validation**: Ensuring all security configurations are properly implemented
-6. **Plugin Configuration**: Setting up and testing the discourse-solved, discourse-voting, and discourse-data-explorer plugins
-7. **Branding Implementation**: Applying organizational themes and customizations
-8. **User Acceptance Testing**: Preparing for limited user testing phase
+6. **Branding Implementation**: Applying organizational themes and customizations
+7. **User Acceptance Testing**: Preparing for limited user testing phase
 
-We've successfully overcome initial deployment challenges with certificates, memory allocation, startup optimizations, admin authentication issues, and email configuration, providing a solid foundation for further development and configuration.
+We've successfully overcome initial deployment challenges with certificates, memory allocation, startup optimizations, admin authentication issues, email configuration, logo display, and two-factor authentication, providing a solid foundation for further development and configuration.
 
 ## Recent Accomplishments
 
@@ -234,15 +236,16 @@ We've successfully overcome initial deployment challenges with certificates, mem
 2. **Admin Access Resolution**: Diagnosed and resolved admin authentication issues related to VPN connectivity
 3. **503 Error Resolution**: Resolved intermittent 503 errors by increasing memory allocation to 2GB to accommodate admin dashboard graph loading requirements
 4. **Email System Configuration**: Successfully configured and tested email delivery system with updated connection settings
-5. **Deployment Documentation**: Created detailed documentation of deployment process and troubleshooting steps
-6. **Configuration Optimization**: Optimized container startup by configuring appropriate probe timings and resource allocation
+5. **Logo Display Fix**: Resolved logo visibility issue by forcing HTTPS and re-uploading image assets
+6. **Two-Factor Authentication Verification**: Successfully tested and verified Duo Mobile integration with QR code setup and passcode login
+7. **Version Update**: Updated Discourse to version 3.4.4 through ArgoCD deployment pipeline
+8. **Deployment Documentation**: Created detailed documentation of deployment process and troubleshooting steps
+9. **Configuration Optimization**: Optimized container startup by configuring appropriate probe timings and resource allocation
 
 ## Known Issues
 
 1. **VPN Dependency**: Admin access requires VPN connectivity, which has been documented clearly
 2. **Resource Requirements**: Memory requirements are higher than initially estimated due to admin dashboard complexity
-3. **Logo Display Issue**: Logo not appearing correctly in dark mode theme
-4. **Passkey Authentication**: Passkey login functionality is not working properly
 
 ## Technology Choices
 
@@ -254,24 +257,24 @@ We've successfully overcome initial deployment challenges with certificates, mem
 - **Ingress**: NGINX Ingress Controller
 - **TLS**: Let's Encrypt with cert-manager
 - **Storage**: Longhorn
+- **CI/CD**: ArgoCD for automated deployments
 
 ### Discourse Configuration
-- **Version**: Latest stable from Bitnami chart (3.4.3)
+- **Version**: 3.4.4 (updated via ArgoCD)
 - **Plugins**: discourse-solved, discourse-voting, discourse-data-explorer
 - **Theme**: Custom theme based on organization branding
-- **Authentication**: Internal with SSO integration (if required)
+- **Authentication**: Internal with two-factor authentication (Duo Mobile verified)
 
 ### Operations
 - **Monitoring**: Prometheus and Grafana
 - **Logging**: ELK Stack or Loki
 - **Backups**: Automated using Velero
-- **CI/CD**: GitOps with ArgoCD or FluxCD
 
 ## Open Questions
 
 - What specific metrics should we monitor for Discourse health?
 - What backup schedule is appropriate for our usage patterns?
-- How should we handle Discourse updates and database migrations?
+- How should we handle Discourse updates and database migrations via ArgoCD?
 - What additional plugins might be needed as usage grows?
 - How will we measure user adoption and engagement?
 - What user feedback mechanisms should we implement for the documentation?
