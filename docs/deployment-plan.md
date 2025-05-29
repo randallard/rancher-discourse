@@ -7,7 +7,9 @@ permalink: /docs/deployment-plan/
 
 # Discourse on Rancher: Deployment Plan
 
-## Immediate Actions (Next 48 Hours)
+**Current Status**: Immediate actions are complete. Now working on [Short-Term Tasks](#short-term-tasks-1-2-weeks), followed by [Mid-Term Tasks](#mid-term-tasks-2-4-weeks) and [Long-Term Tasks](#long-term-tasks-1-3-months).
+
+## Immediate Actions - complete
 
 ### 1. Deploy to Development Environment
 ```bash
@@ -21,7 +23,7 @@ helm install discourse bitnami/discourse \
   -f values.yaml
 ```
 
-### 2. Verify Deployment Status
+### 2. Verify Deployment Status 
 ```bash
 # Check pod status
 kubectl --kubeconfig C:\Users\myuser\.kube\rancher-cluster.yaml get pods -n discourse-dev
