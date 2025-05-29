@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Deployment Options"
+parent: Technical
+nav_order: 5
+date: 2025-05-12
+---
+
 # Deploying Discourse on Rancher Kubernetes
 
 This guide walks through the process of deploying Discourse on a Kubernetes cluster managed by Rancher.

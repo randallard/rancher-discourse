@@ -32,6 +32,8 @@ Our deployment will follow a structured approach with emphasis on documentation 
 
 We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our deployment options documentation]({{ '/docs/technical/deployment-options' | relative_url }}), specifically Option 1, for its balance of simplicity, maintainability, and customization capabilities.
 
+
+[Deployment Journal]({{ '/docs/deployment-journal' | relative_url }})
 ## Core Requirements
 
 ### 1. Infrastructure Requirements
@@ -102,7 +104,7 @@ We've chosen to use the **Bitnami Helm Chart** approach as outlined in [our depl
 - ⬜ Test and validate customizations
 
 ### Phase 5: Verification & Testing 🔄
-- 🔄 Complete comprehensive verification checklist (see [verification-checklist.md]({{ '/docs/technical/verification-checklist' | relative_url }}))
+- 🔄 Complete comprehensive verification checklist (see [verification-checklist.md]({{ '/docs/verification-checklist' | relative_url }}))
 - ⬜ Validate all core functionality
 - ⬜ Performance testing and optimization
 - ⬜ Security validation
